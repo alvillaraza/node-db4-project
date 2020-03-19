@@ -27,7 +27,16 @@ exports.up = function(knex) {
     .createTable("instructions", tbl => {
       tbl.increments();
 
-      tbl.string("instructions");
+      tbl.string("instructions")
+
+      tbl
+        .integer("recipe_id")
+        .unsigned()
+        .notNullible()
+        .references("id")
+        .inTable("recipes")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
     });
 };
 
